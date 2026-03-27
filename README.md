@@ -1,10 +1,90 @@
 # Pixel-and-Image-Classification-on-a-Sentinel-2-Time-Series
-This repository presents a comparative land-use and land-cover classification workflow using both traditional machine learning and deep learning approaches on multi-temporal satellite imagery. The project focuses on three Sentinel-2 Level-1C scenes acquired over the same geographic area, with each image separated by at least one year, in order to analyze land-cover dynamics over time.
+## Overview
+This project compares two land-use / land-cover classification approaches on a multi-temporal Sentinel-2 time series:
+- Pixel-based classification using traditional machine learning
+- Image-based classification using convolutional neural networks (CNNs)
 
-The first part of the project uses Google Earth Engine in Python to download Sentinel-2 imagery for a selected area of interest. Separate label shapefiles are created for each scene in a GIS environment, using at least five consistent land-cover classes across all dates. These labeled samples are then used to train multiple supervised machine learning models for pixel-based classification. Model performance is assessed using cross-validation, and at least one model undergoes hyperparameter tuning with nested cross-validation to obtain a more robust estimate of generalization accuracy. The best-performing model for each scene is then applied to classify the entire image and generate land-use maps.
+The study uses three Sentinel-2 Level-1C scenes acquired over the same area at different dates to analyze land-cover dynamics over time.
 
-The second part of the project shifts to image-based classification. Using the EuroSAT RGB dataset, several convolutional neural network architectures are trained and compared. Their validation performance is reported, and optional regularization techniques such as dropout or batch normalization may be used to reduce overfitting. The best CNN is then used to classify tiled Sentinel-2 image patches of size 64 × 64 pixels. At least 20 corresponding tiles from each Sentinel scene are visualized and compared across time.
+## Objectives
+The main goals of this repository are to:
+- Build a complete remote sensing classification workflow
+- Compare pixel-based and image-based classification methods
+- Evaluate classification performance across multiple dates
+- Analyze land-cover change and model uncertainty over time
 
-A major goal of this repository is to evaluate how pixel-based and image-based classification methods perform on the same Sentinel time series. The analysis highlights classification strengths, sources of error, possible land-cover changes, and the limitations of each method. Special attention is given to whether detected changes represent real environmental change or model uncertainty, and to how scene quality, cloud cover, label quality, spatial resolution, and domain mismatch between EuroSAT and Sentinel-2 influence results.
+## Study Workflow
 
-Overall, this repository provides a complete remote sensing workflow covering data acquisition, annotation, model training, validation, prediction, visualization, and comparative analysis for land-cover monitoring.
+### 1. Sentinel-2 Data Preparation
+Sentinel-2 imagery is downloaded using Google Earth Engine in Python for the selected area of interest.
+
+### 2. Label Creation
+Land-cover labels are created in a GIS environment for each scene, using a consistent class schema across all dates.
+
+### 3. Pixel-Based Classification
+The labeled samples are used to train supervised machine learning models on spectral band values.  
+The best-performing model for each scene is selected through validation and cross-validation, then used to classify the full image.
+
+### 4. Image-Based Classification
+Using the EuroSAT RGB dataset, CNN-based models are trained and compared.  
+The best CNN is then applied to Sentinel-2 image patches of size 64 × 64 pixels.
+
+### 5. Temporal Comparison
+Classification outputs from different years are compared to identify land-cover changes, potential model uncertainty, and differences between the two approaches.
+
+## Repository Structure
+- `05_eurosat_rgb/` – EuroSAT RGB dataset or related image-based classification inputs
+- `Labels_New_Cairo/` – label files for the study area
+- `04_pixel_bands_2016.npy` – pixel-based features for 2016
+- `04_pixel_bands_2018.npy` – pixel-based features for 2018
+- `04_pixel_bands_2020.npy` – pixel-based features for 2020
+- `04_pixel_band_classes_2016.npy` – class labels for 2016
+- `04_pixel_band_classes_2018.npy` – class labels for 2018
+- `04_pixel_band_classes_2020.npy` – class labels for 2020
+- `DAP05_Final_Project.ipynb` – main notebook for the project
+
+## Data
+- Sentinel-2 Level-1C imagery
+- EuroSAT RGB dataset
+- GIS-based land-cover labels prepared for each acquisition date
+
+## Methods
+### Pixel-Based Methods
+Traditional supervised machine learning models trained on Sentinel-2 pixel values.
+
+### Image-Based Methods
+CNN architectures trained on image patches for scene classification.
+
+## Outputs
+The repository produces:
+- trained classification models
+- scene-wide prediction maps
+- model evaluation metrics
+- visual comparisons across dates
+- land-cover change analysis
+
+## Key Questions
+This project investigates:
+- How well do pixel-based and image-based methods perform on the same Sentinel-2 time series?
+- Which method generalizes better across dates?
+- Are detected changes real land-cover changes or model-related uncertainty?
+- How do cloud cover, label quality, and spatial resolution influence results?
+
+## How to Run
+1. Prepare the Sentinel-2 and label data
+2. Install the required Python libraries
+3. Open `DAP05_Final_Project.ipynb`
+4. Run the notebook sections in order:
+   - data loading
+   - preprocessing
+   - training
+   - validation
+   - prediction
+   - visualization
+
+## Future Improvements
+- A requirements file will be added
+- Visual examples of classification maps will be added
+- soon to include Evaluation 
+- Document class definitions and label schema will be included
+- Will also add reproducible setup instructions
