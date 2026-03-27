@@ -47,6 +47,7 @@ Classification outputs from different years are compared to identify land-cover 
 - Sentinel-2 Level-1C imagery
 - EuroSAT RGB dataset
 - GIS-based land-cover labels prepared for each acquisition date
+- The sentinel data can be generated if you follow the notebook,a location in Egypt was selected which focuses on New, Cairo
 
 ## Methods
 ### Pixel-Based Methods
